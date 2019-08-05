@@ -60,10 +60,9 @@ class DashboardController extends Controller
             ->whereRaw('buffer_stocks >= quantity')->where('status', '=', 'ACTIVE')->orderBy('item_name', 'ASC')->paginate(9);
             // return dd($stocksLow);
             foreach($stocksLow as $item){
-                // if(count($item->ItemStats) > 0){ // check if item's relation(item_stats) is empty or not
+                if(count($item->itemStats) > 0){ // check if item's relation(item_stats) is empty or not
                     foreach($item->itemStats as $stat){
-                        // return $ave_issuance;
-                        if(empty($stat->ave_issuance)){
+                        if(is_null($stat->ave_issuance)){
                             $dateCreated = new Carbon($item->created_at);
                             $depletionRate = $this->calcDailyIssuance($stat, $dateCreated);
                             if($item->quantity == 0){
@@ -83,8 +82,8 @@ class DashboardController extends Controller
                             $item->item_desc = 'Stocks depleted';
                         }
                     } //quantity left / depletion rate = days before depletion. (based on last month's ave_issuance(item_stats) / calcDailyIssuance())
-                // }
-                // else{$item->item_desc = 'else';} //if no record in item_stats
+                }
+                else{$item->item_desc = 'N/A';} //if no record in item_stats / no previous ave_issuance
         }
         return $stocksLow;
     }
