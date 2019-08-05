@@ -34,27 +34,3 @@ class ItemsExport implements FromCollection, WithHeadings
         return $items;
     }
 }
-
-// namespace App\Exports;
-
-// use App\Item;
-// use Maatwebsite\Excel\Concerns\FromCollection;
-// use Maatwebsite\Excel\Concerns\WithHeadings;
-
-// class ItemsExport implements FromCollection, WithHeadings
-// {
-//     /**
-//     * @return \Illuminate\Support\Collection
-//     */
-//     public function headings(): array{
-//         return[
-//             ['ID','Item Name','Item Description','Quantity','UOM','Payment','Buffer Stocks','Lead Time','','Status','Date Created','Date Updated'],
-//             ['','','','','','0=flowlites | 1=cprf','','day(s)'],
-//         ];
-//     }
-
-//     public function collection()
-//     {
-//         return Item::where('status', '=', 'ACTIVE')->get();
-//     }
-// }
