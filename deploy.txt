@@ -1,0 +1,38 @@
+Deploy
+
+Navigate to server's www folder ( ex. 10.129.8.20's C:\laragon\www )
+Git clone https://github.com/mikkoRomasanta/gsis.git (enter username and password if prompted)
+Check wamp/nginx's config and make sure root is laravelApp/public
+Try to access site. If error on line 24 continue steps. If not check root directory on wamp/nginx config
+Cp .env.example .env (will copy env.example file and rename it .env)
+Open and edit the .env file change APP_URL if necessary && change  the database info && App name
+Make sure storage and bootstrap/cache folders are writable
+Composer install --no-dev
+Php artisan key:generate
+Php artisan migrate
+Composer dump-autoload
+Php artisan db:seed (check if seeds pushed through, run seeds manually if not db:seed --class=exampleSeeder)
+
+If you have a symlink you need to re-link it
+Rm -rf public/storage
+Php artisan storage:link
+
+Add 1st user
+Php artisan tinker
+$user = new App/User();
+$user->name = 'Admin';
+$user->username = 'Admin';
+$user->password = Hash::make('pass1234');
+$user->role = 'ADMIN';
+$user->save();
+
+Follow SQL
+SQL
+
+Gsis.items and gsis.item_stats = set created_at and updated_at to default to 'current timestamp'
+Gsis.items and gsis.item_stats = Upload csv files for both.
+Gsis.uom = insert uoms
+Gsis.areas = insert areas
+Gsis.items_stats_update = add last month ex. (Jun 2019)
+
+Gsis.item_stats = truncate; then run php artisan update:items
