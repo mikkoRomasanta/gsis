@@ -70,7 +70,7 @@ class DashboardController extends Controller
                                 $item->item_desc = 'Stocks depleted';
                             }
                             else if($depletionRate == 0){
-                                $item->item_desc = $stat->ave_issuance;
+                                $item->item_desc = 'N/A';
                             }
                             else{
                                 $item->item_desc = number_format((float)$item->quantity / $depletionRate,2,'.','');
