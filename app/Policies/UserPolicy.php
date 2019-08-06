@@ -16,6 +16,11 @@ class UserPolicy
      */
     public function view(User $user)
     {
+        return $user->role != 'USER';
+    }
+
+    public function viewLogs(User $user)
+    {
         return $user->role == 'ADMIN';
     }
 

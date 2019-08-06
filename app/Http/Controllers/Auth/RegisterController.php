@@ -95,4 +95,16 @@ class RegisterController extends Controller
         return $this->registered($request, $user)
                         ?: redirect($this->redirectPath());
     }
+
+    public function showRegistrationForm()
+    {
+        $user = Auth::user();
+
+        if($user->can('view', User::class)){
+            return view('auth.register');
+        }
+        else{
+            return redirect('/error01');
+        }
+    }
 }

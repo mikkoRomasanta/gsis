@@ -34,7 +34,9 @@
                                 <select class="form-control" name="role">
                                     <option value="USER">USER</option>
                                     <option value="GSADMIN">GS-ADMIN</option>
-                                    <option value="ADMIN">ADMIN</option>
+                                    @if(Auth::user()->role == 'ADMIN')
+                                        <option value="ADMIN">ADMIN</option>
+                                    @endif
                                 </select>
                             </div>
                         </div>

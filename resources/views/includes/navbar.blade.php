@@ -53,14 +53,18 @@
                         </li>
                     @endif
                     @if(Auth::guest())
-                    @elseif(Auth::user()->role == 'ADMIN')
-                    <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
-                            <div class="dropdown-menu color-bg-main">
-                              <a class="dropdown-item" href="/admin/accounts">Accounts</a>
-                              <a class="dropdown-item" href="/admin/adminlogs">Logs</a>
-                            </div>
-                        </li>
+                    @elseif(Auth::user()->role != 'USER')
+                        @if(Auth::user()->role != 'ADMIN')
+                            <li class="nav-item"><a class="nav-link " href="/admin/accounts">Admin</a></li>
+                        @else
+                            <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                                    <div class="dropdown-menu color-bg-main">
+                                    <a class="dropdown-item" href="/admin/accounts">Accounts</a>
+                                    <a class="dropdown-item" href="/admin/adminlogs">Logs</a>
+                                    </div>
+                                </li>
+                        @endif
                     @endif
                 </ul>
 

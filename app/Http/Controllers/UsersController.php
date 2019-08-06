@@ -63,7 +63,7 @@ class UsersController extends Controller
 
     public function adminLogs(){
         $user = Auth::user();
-        if($user->can('view', User::class)){
+        if($user->can('viewLogs', User::class)){
             $data = Admin::getAll();
 
             return view('admin.adminlogs')->with('data', $data);
