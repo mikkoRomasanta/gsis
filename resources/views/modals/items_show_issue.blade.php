@@ -25,7 +25,7 @@
                             <td>{{Form::text('received_by','' ,['class' => 'form-control form-control-sm', 'placeholder' => 'receipient',])}}</td>
                             <td>{{Form::submit('Submit',['class' => 'btn btn-primary btn-sm'])}}</td>
                         </tr>
-                        {{Form::hidden('issued_by', Auth::user()->username,['class' => 'form-control-sm'])}}
+                        {{Form::hidden('issued_by', Auth::user()->name.' ['.Auth::user()->username.']',['class' => 'form-control-sm'])}}
                     </table>
                     {{ Form::close() }}
             </div>

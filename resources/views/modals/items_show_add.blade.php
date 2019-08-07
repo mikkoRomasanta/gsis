@@ -20,7 +20,7 @@
                             <td hidden="true">{{Form::select('item_id', [$item->id => $item->item_name], 0, ['class' => 'form-control-sm', 'readonly'])}}</td>
                             <td>{{Form::number('quantity','',['class' => 'form-control form-control-sm', 'placeholder' => '0'])}}</td>
                             <td>{{Form::text('uom',$item->uom,['class' => 'form-control form-control-sm', 'id' => 'uom', 'readonly'])}}</td>
-                            <td>{{Form::text('received_by', Auth::user()->username,['class' => 'form-control form-control-sm', 'placeholder' => 'name', 'readonly'])}}</td>
+                            <td>{{Form::text('received_by', Auth::user()->name.' ['.Auth::user()->username.']',['class' => 'form-control form-control-sm', 'placeholder' => 'name', 'readonly'])}}</td>
                             <td>{{Form::submit('Submit',['class' => 'btn btn-primary btn-sm'])}}</td>
                         </tr>
                     </table>
