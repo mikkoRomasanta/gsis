@@ -72,8 +72,11 @@ class RegisterController extends Controller
 
         //save admin logs
         $user = Auth::user()->username;
-        $action = 'Created user ['.$data["username"].'] ';
-        Admin::insertLog($user, $action);
+        $action1 = 'Created';
+        $action2 = 'User';
+        $action3 = '['.$data["username"].'] ';
+        $remarks = null;
+        Admin::insertLog($user, $action1, $action2, $action3, $remarks);
 
         return User::create([
             'name' => $data['name'],
