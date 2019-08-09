@@ -10771,6 +10771,10 @@ a:hover {
   background-color: #FF4242 !important;
 }
 
+.color-bg-secondary {
+  background-color: #F4FAD2 !important;
+}
+
 .color-btn-link {
   background-color: #D4EE5E !important;
   color: #1C140D !important;
@@ -10779,10 +10783,6 @@ a:hover {
 .color-btn-link:hover {
   background-color: #FF4242 !important;
   color: white !important;
-}
-
-.color-bg-secondary {
-  background-color: #F4FAD2 !important;
 }
 
 .color-font-main {
@@ -10855,6 +10855,10 @@ a:hover {
 
 .navbar-dark .navbar-nav .nav-link:hover {
   color: #D4EE5E !important;
+}
+
+.odd {
+  background-color: #F4FAD2 !important;
 }
 
 .page-item {

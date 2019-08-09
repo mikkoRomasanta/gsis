@@ -5,7 +5,17 @@
     <div class="container h-100">
         <table class="display compact table-striped" id="table-items">
             <thead>
-                <tr>
+                <tr id="filter_row" class="color-bg-secondary">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr class="color-bg-main color-font-dark">
                     <th>ID</th>
                     <th>Item</th>
                     <th>Description</th>
@@ -100,7 +110,8 @@
                             }
                         },
                 ],
-                order: [[0,'asc']]
+                order: [[0,'asc']],
+                orderClasses: false,
             });
 
             $('<div>' +

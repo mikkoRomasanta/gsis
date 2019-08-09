@@ -39,7 +39,10 @@ class IssuancesImport implements ToCollection
         $rowLength = count($rows);
         //save admin logs
         $user = Auth::user()->username;
-        $action = 'Import issuances ['.$rowLength.' rows]';
-        Admin::insertLog($user, $action);
+        $action1 = 'Imported';
+        $action2 = 'Issuances';
+        $action3 =  '['.$rowLength.' rows]';
+        $remarks = null;
+        Admin::insertLog($user, $action1, $action2, $action3, $remarks);
     }
 }

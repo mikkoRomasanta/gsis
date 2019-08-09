@@ -105,6 +105,10 @@ a:hover{
     background-color: #FF4242 !important;
 }
 
+.color-bg-secondary{
+    background-color: #F4FAD2 !important;
+}
+
 .color-btn-link{
     background-color: #D4EE5E !important;
     color: #1C140D !important;
@@ -115,9 +119,6 @@ a:hover{
     color: white !important;
 }
 
-.color-bg-secondary{
-    background-color: #F4FAD2 !important;
-}
 //******************
 
 //*****COLOR FONT*****
@@ -192,6 +193,10 @@ a:hover{
 
 .navbar-dark .navbar-nav .nav-link:hover{
     color: #D4EE5E !important;
+}
+
+.odd{ //secondary
+    background-color: #F4FAD2 !important
 }
 
 .page-item{

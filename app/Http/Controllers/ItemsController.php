@@ -97,8 +97,11 @@ class ItemsController extends Controller
 
                  //save admin logs
             $user = Auth::user()->username;
-            $action = 'Created item ['.$item->id.'] '.$item->item_name;
-            Admin::insertLog($user, $action);
+            $action1 = 'Created';
+            $action2 = 'Item';
+            $action3 = '['.$item->id.'] '.$item->item_name;
+            $remarks = null;
+            Admin::insertLog($user, $action1, $action2, $action3, $remarks);
         }
 
         return redirect('/items')->with('success', 'Item Created');
@@ -224,8 +227,11 @@ class ItemsController extends Controller
 
             //save admin logs
             $user = Auth::user()->username;
-            $action = 'Edited item ['.$item->id.'] '.$item->item_name;
-            Admin::insertLog($user, $action);
+            $action1 = 'Edited';
+            $action2 = 'Item';
+            $action3 = '['.$item->id.'] '.$item->item_name;
+            $remarks = null;
+            Admin::insertLog($user, $action1, $action2, $action3, $remarks);
 
             return redirect('/items')->with('success', 'Item Updated');
         }
@@ -252,8 +258,11 @@ class ItemsController extends Controller
 
             //save admin logs
             $user = Auth::user()->username;
-            $action = 'Deleted item ['.$item->id.'] '.$item->item_name;
-            Admin::insertLog($user, $action);
+            $action1 = 'Deleted';
+            $action2 = 'Item';
+            $action3 = '['.$item->id.'] '.$item->item_name;
+            $remarks = null;
+            Admin::insertLog($user, $action1, $action2, $action3, $remarks);
 
 
             return redirect('/items')->with('success', 'Item Removed');

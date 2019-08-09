@@ -5,7 +5,21 @@
         <input id="role" type="text" style="display:none" value="{{ Auth::user()->role }}" readonly>
         <table class="display compact table-striped" id="table-accounts">
             <thead>
-                <tr>
+                <tr id="filter_row" class="color-bg-link">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    @if(Auth::user()->role == 'ADMIN')
+                        <th></th>
+                    @else
+                        <th style='display:none'></th>
+                    @endif
+                </tr>
+                <tr class="color-bg-main color-font-dark">
                     <th>Id</th>
                     <th>Username</th>
                     <th>Name</th>
@@ -59,7 +73,37 @@
                     dom: 'Bfrtip',
                     buttons: [
                                 'register'
-                    ]
+                    ],
+                    initComplete: function () {
+                        this.api().columns([3,4]).every( function () {
+                            var column = this;
+                            var select = $('<select style="font-size: .8rem;width: 100%;"><option value="">All</option></select>')
+                            .appendTo($("#filter_row").find("th").eq(column.index()))
+                            .on( 'change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                                );
+
+                                column
+                                .search( val ? '^'+val+'$' : '', true, false )
+                                .draw();
+                            } );
+                            column
+                            .data()
+                            .unique()
+                            .sort()
+                            .each(function(d, j) {
+                                var val = $.fn.dataTable.util.escapeRegex(d);
+                                if (column.search() === "^" + val + "$") {
+                                select.append(
+                                '<option value="' + d + '" selected="selected">' + d + "</option>"
+                                );
+                                } else {
+                                select.append('<option value="' + d + '">' + d + "</option>");
+                                }
+                            });
+                        });
+                    }
                 });
 
                 $('#table-accounts tbody')
@@ -92,7 +136,38 @@
                     dom: 'Bfrtip',
                     buttons: [
                                 'register'
-                    ]
+                    ],
+                    orderClasses: false,
+                    initComplete: function () {
+                        this.api().columns([3,4]).every( function () {
+                            var column = this;
+                            var select = $('<select style="font-size: .8rem;width: 100%;"><option value="">All</option></select>')
+                            .appendTo($("#filter_row").find("th").eq(column.index()))
+                            .on( 'change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                                );
+
+                                column
+                                .search( val ? '^'+val+'$' : '', true, false )
+                                .draw();
+                            } );
+                            column
+                            .data()
+                            .unique()
+                            .sort()
+                            .each(function(d, j) {
+                                var val = $.fn.dataTable.util.escapeRegex(d);
+                                if (column.search() === "^" + val + "$") {
+                                select.append(
+                                '<option value="' + d + '" selected="selected">' + d + "</option>"
+                                );
+                                } else {
+                                select.append('<option value="' + d + '">' + d + "</option>");
+                                }
+                            });
+                        });
+                    }
                 });
         }
 

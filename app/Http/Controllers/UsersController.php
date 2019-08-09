@@ -64,14 +64,25 @@ class UsersController extends Controller
     public function adminLogs(){
         $user = Auth::user();
         if($user->can('viewLogs', User::class)){
-            $data = Admin::getAll();
 
-            return view('admin.adminlogs')->with('data', $data);
+            return view('admin.adminlogs');
         }
         else{
             return redirect('/error01');
         }
 
+    }
+
+    public function getAdminLogs(){
+        $user = Auth::user();
+        if($user->can('viewLogs', User::class)){
+            $adminLogs = Admin::get();
+
+            return $adminLogs->toJson();
+        }
+        else{
+            return redirect('/error01');
+        }
     }
 
     public function getAll(){
@@ -104,8 +115,11 @@ class UsersController extends Controller
 
             //save admin logs
             $user = Auth::user()->username;
-            $action = 'Edited user['.$id.'] '.$username;
-            Admin::insertLog($user, $action);
+            $action1 = 'Edited';
+            $action2 = 'User';
+            $action3 = '['.$id.'] '.$username;
+            $remarks = null;
+            Admin::insertLog($user, $action1, $action2, $action3, $remarks);
 
             return redirect('/admin/accounts')->with('success', 'Item Updated');
         }

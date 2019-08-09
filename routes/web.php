@@ -28,6 +28,7 @@ Auth::routes(); //Auth::routes(['register' => false]) //disable registration;
 Route::get('admin/accounts', 'UsersController@index');
 Route::post('admin/accounts', 'UsersController@update');
 Route::get('admin/adminlogs', 'UsersController@adminLogs');
+Route::get('getAdminLogs', 'UsersController@getAdminLogs')->name('get.adminLogs');
 Route::get('/changepass', 'UsersController@changePass');
 Route::post('/changepass', 'UsersController@changePassword');
 Route::get('getUser', 'UsersController@getAll')->name('get.user');

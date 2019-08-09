@@ -12,10 +12,13 @@ class Admin extends Model
         'action', 'user',
     ];
 
-    public static function insertLog($user, $action){
+    public static function insertLog($user, $action1, $action2, $action3, $remarks){
         $admin = new Admin;
 
-        $admin->action = $action;
+        $admin->action1 = $action1;
+        $admin->action2 = $action2;
+        $admin->action3 = $action3;
+        $admin->remarks = $remarks;
         $admin->user= $user;
         $admin->save();
     }

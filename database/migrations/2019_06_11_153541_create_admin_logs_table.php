@@ -15,7 +15,7 @@ class CreateAdminLogsTable extends Migration
     {
         Schema::create('admin_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('action');
+            $table->string('action')->nullable();
             $table->string('user');
             $table->timestamps();
         });

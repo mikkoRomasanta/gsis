@@ -5,7 +5,17 @@
     <div class="container h-100">
         <table class="display compact table-striped" id="table-issuance">
             <thead>
-                <tr>
+                <tr id="filter_row" class="color-bg-link">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr class="color-bg-main color-font-dark">
                     <th>Id</th>
                     <th>Date & Time</th>
                     <th>Item</th>
@@ -16,19 +26,6 @@
                     <th>Shift</th>
                 </tr>
             </thead>
-            {{-- <tbody>
-                @foreach($query as $iss)
-                <tr>
-                    <td>{{$iss->id}}</td>
-                    <td>{{$iss->created_at}}</td>
-                    <td>{{$iss->item_name}}</td>
-                    <td>{{$iss->quantity.' '.$iss->uom}}</td>
-                    <td>{{$iss->received_by}}</td>
-                    <td>{{$iss->issued_by}}</td>
-                    <td>{{$iss->area_name}}</td>
-                </tr>
-                @endforeach
-            </tbody> --}}
         </table>
     </div>
 @endsection
@@ -60,7 +57,38 @@
                 buttons: [
                             'csv', 'excel', 'print'
                         ],
-                order: [[0,'desc']]
+                order: [[0,'desc']],
+                orderClasses: false,
+                initComplete: function () {
+                    this.api().columns([2,5,6,7]).every( function () {
+                        var column = this;
+                        var select = $('<select style="font-size: .8rem;width: 100%;"><option value="">All</option></select>')
+                        .appendTo($("#filter_row").find("th").eq(column.index()))
+                        .on( 'change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                            );
+
+                            column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                        } );
+                        column
+                        .data()
+                        .unique()
+                        .sort()
+                        .each(function(d, j) {
+                            var val = $.fn.dataTable.util.escapeRegex(d);
+                            if (column.search() === "^" + val + "$") {
+                            select.append(
+                            '<option value="' + d + '" selected="selected">' + d + "</option>"
+                            );
+                            } else {
+                            select.append('<option value="' + d + '">' + d + "</option>");
+                            }
+                        });
+                    });
+                }
             });
 
             $val = $('#searchContent').html();
