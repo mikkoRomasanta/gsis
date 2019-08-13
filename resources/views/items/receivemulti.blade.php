@@ -46,37 +46,37 @@
                 $('#row'+button_id+'').remove();
             });
 
-            $('#submit').click(function(){
-                $.ajax({
-                        url:postURL,
-                        method:"POST",
-                        data:$('#receive_stocks').serialize(),
-                        type:'json',
-                        success:function(data)
-                        {
-                            if(data.error){
-                                printErrorMsg(data.error);
-                            }else{
-                                i=1;
-                                $('#receive_stocks')[0].reset();
-                                $(".print-success-msg").find("ul").html('');
-                                $(".print-success-msg").css('display','block');
-                                $(".print-error-msg").css('display','none');
-                                $(".print-success-msg").find("ul").append('<li>Record Inserted Successfully.</li>');
-                            }
-                        }
-                });
-            });
+            // $('#submit').click(function(){
+            //     $.ajax({
+            //             url:postURL,
+            //             method:"POST",
+            //             data:$('#receive_stocks').serialize(),
+            //             type:'json',
+            //             success:function(data)
+            //             {
+            //                 if(data.error){
+            //                     printErrorMsg(data.error);
+            //                 }else{
+            //                     i=1;
+            //                     $('#receive_stocks')[0].reset();
+            //                     $(".print-success-msg").find("ul").html('');
+            //                     $(".print-success-msg").css('display','block');
+            //                     $(".print-error-msg").css('display','none');
+            //                     $(".print-success-msg").find("ul").append('<li>Record Inserted Successfully.</li>');
+            //                 }
+            //             }
+            //     });
+            // });
 
 
-            function printErrorMsg (msg) {
-                $(".print-error-msg").find("ul").html('');
-                $(".print-error-msg").css('display','block');
-                $(".print-success-msg").css('display','none');
-                $.each( msg, function( key, value ) {
-                    $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-                });
-            }
+            // function printErrorMsg (msg) {
+            //     $(".print-error-msg").find("ul").html('');
+            //     $(".print-error-msg").css('display','block');
+            //     $(".print-success-msg").css('display','none');
+            //     $.each( msg, function( key, value ) {
+            //         $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            //     });
+            // }
 
             $(document).on("change", "#item_id", function(){	// change uom based on item
                 val = $(this).val();

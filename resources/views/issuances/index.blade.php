@@ -41,11 +41,36 @@
                     },
                 columns: [
                     {'data' : 'id'},
-                    {'data' : 'created_at'},
+                    {
+                        'data' : 'created_at',
+                        "render": function ( data, type, row, meta ) {
+                            if(data === null){
+                                return '';
+                            }
+                            else{
+                                return type === 'display' && data.length > 10 ?
+                                '<span title="'+data+'">'+data.substr( 0, 10 )+'</span>' :
+                                data;
+                            }
+                        }
+                    },
                     {'data' : 'item_name'},
                     {'data' : 'quantity'},
                     {'data' : 'received_by'},
-                    {'data' : 'issued_by'},
+                    {
+                        'data' : 'issued_by',
+                        "render": function ( data, type, row, meta ) {
+                            if(data === null){
+                                return '';
+                            }
+                            else{
+                                var username = data.indexOf('[')-1;
+                                return type === 'display' && data.length > username ?
+                                '<span title="'+data+'">'+data.substr( 0, username )+'</span>' :
+                                data;
+                            }
+                        }
+                    },
                     {'data' : 'area_name'},
                     {'data' : 'shift'},
                 ],
