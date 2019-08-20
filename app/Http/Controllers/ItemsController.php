@@ -128,7 +128,7 @@ class ItemsController extends Controller
     {
         $item = Item::withCount(['itemStats'])->find($id); //item_stats_count instead of itemStats_count. method separates camelCase with '_'
         if($item->status == 'ACTIVE'){
-            $issuances = Issuance::with('item','area')->orderBy('id','desc')->where('item_id', $id)->take(3)->get(); //get issuances with relationship
+            $issuances = Issuance::with('item','area')->orderBy('id','desc')->where('item_id', $id)->where('status', '=', 'ACTIVE')->take(3)->get(); //get issuances with relationship
             $receivings = Receiving::with('item')->orderBy('id','desc')->where('item_id', $id)->take(3)->get();
             if($item->item_stats_count == 1){ //new items only has 1 record in item_stats
                 $stats = ItemStat::getStats($id);

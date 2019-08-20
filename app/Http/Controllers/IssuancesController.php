@@ -176,6 +176,7 @@ class IssuancesController extends Controller
         $issuanceDt = Issuance::select('issuances.id', 'issuances.quantity', 'issuances.issued_by', 'issuances.received_by', 'issuances.created_at', 'issuances.shift','areas.area_name', 'items.item_name', 'items.uom')
         ->leftJoin('areas','issuances.area', '=', 'areas.id')
         ->leftJoin('items', 'issuances.item_id', '=', 'items.id')
+        ->where('issuances.status', '=', 'ACTIVE')
         ->get();
 
         // $issuanceDt = Issuance::all()->toJson();
