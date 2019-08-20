@@ -93,7 +93,7 @@ class IssuancesController extends Controller
 
         foreach($request->input('quantity') as $key => $value) {
             $quantityCount = Item::where('id', $item_id[$key])->value('quantity');
-            $rules["quantity.{$key}"] = ['min:0.25',new QuantityCount($quantityCount)];
+            $rules["quantity.{$key}"] = ['min:0.25'];
         }
 
         foreach($request->input('received_by') as $key => $value){
@@ -119,6 +119,13 @@ class IssuancesController extends Controller
 
             for($count = 0; $count < count($item_id); $count++){
 
+                $quantityCount = Item::where('id', $item_id[$count])->value('quantity');
+
+                if($quantity[$count] > $quantityCount)
+                {
+                    return redirect()->back()->with('error', 'Quantity is greater than available stocks');
+                }
+
                 $iss = new Issuance;
                 $iss->item_id = $item_id[$count];
                 $iss->quantity = $quantity[$count];
@@ -128,7 +135,7 @@ class IssuancesController extends Controller
                 $iss->issued_by = $issued_by;
                 $iss->save();
 
-                $quantityCount = Item::where('id', $item_id[$count])->value('quantity');
+                // $quantityCount = Item::where('id', $item_id[$count])->value('quantity');
                 $newQuantity = $quantityCount - $quantity[$count];
                 Item::where('id', $item_id[$count])->update(array('quantity' => $newQuantity));
             }

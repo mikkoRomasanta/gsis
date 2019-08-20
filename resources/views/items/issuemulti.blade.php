@@ -21,7 +21,7 @@
                 <tr>
                     <td style="text-align: center">{{Form::select('item_id[]', $items, null,['class' => 'form-control', 'id' => 'item_id', 'placeholder' => 'choose an item...', 'style' => 'background-color: #e9ecef'])}}</td>
                     <td>{{Form::text('stocks[]','',['class' => 'form-control', 'id' => 'stocks', 'readonly'])}}</td>
-                    <td>{{Form::number('quantity[]','',['class' => 'form-control', 'placeholder' => '0', 'step' => '0.25'])}}</td>
+                    <td>{{Form::number('quantity[]','',['class' => 'form-control', 'placeholder' => '0', 'step' => '0.25', 'min' => 0])}}</td>
                     <td>{{Form::select('area[]',$areas,null,['class' => 'form-control'])}}</td>
                     <td>{{Form::select('shift[]', ['D/S' => 'D/S', 'N/S' => 'N/S'], 0, ['class' => 'form-control'])}}</td>
                     <td>{{Form::text('received_by[]', '',['class' => 'form-control', 'placeholder' => 'receipient'])}}</td>

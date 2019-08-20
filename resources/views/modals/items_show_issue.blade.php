@@ -19,7 +19,7 @@
                         </tr>
                         <tr>
                             <td hidden="true">{{Form::select('item_id', [$item->id => $item->item_name], 0, ['class' => 'form-control-sm', 'readonly'])}}</td>
-                            <td>{{Form::number('quantity','',['class' => 'form-control form-control-sm', 'placeholder' => '0', 'step' => '0.25'])}}</td>
+                            <td>{{Form::number('quantity','',['class' => 'form-control form-control-sm', 'placeholder' => '0', 'step' => '0.25', 'min' => 0])}}</td>
                             <td>{{Form::select('area',$areas,null,['class' => 'form-control-sm'])}}</td>
                             <td>{{Form::select('shift', ['D/S' => 'D/S', 'N/S' => 'N/S'], 0, ['class' => 'form-control-sm'])}}</td>
                             <td>{{Form::text('received_by','' ,['class' => 'form-control form-control-sm', 'placeholder' => 'receipient',])}}</td>

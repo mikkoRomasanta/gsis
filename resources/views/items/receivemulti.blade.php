@@ -20,7 +20,7 @@
                 <tr>
                     <td style="text-align: center">{{Form::select('item_id[]', $items, null,['class' => 'form-control', 'id' => 'item_id', 'placeholder' => 'choose an item...', 'style' => 'background-color: #e9ecef'])}}</td>
                     <td>{{Form::text('stocks[]','',['class' => 'form-control', 'id' => 'stocks', 'readonly'])}}</td>
-                    <td>{{Form::number('quantity[]','',['class' => 'form-control', 'placeholder' => '0'])}}</td>
+                    <td>{{Form::number('quantity[]','',['class' => 'form-control', 'placeholder' => '0', 'min' => 0])}}</td>
                     <td>{{Form::text('uom[]','',['class' => 'form-control', 'id' => 'uom', 'readonly'])}}</td>
                     <td>{{Form::text('received_by[]', Auth::user()->name.' ['.Auth::user()->username.']',['class' => 'form-control', 'placeholder' => 'name', 'readonly'])}}</td>
                     <td></td>
