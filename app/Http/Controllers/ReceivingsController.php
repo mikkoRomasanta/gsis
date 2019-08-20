@@ -89,15 +89,20 @@ class ReceivingsController extends Controller
     }
 
     public function storeMulti(Request $request){
-        $rules = [];
+        $rules = [
+            'quantity.*' => 'required|min:1'
+        ];
+
+        $messages = [
+            'quantity.*.required' => 'quantity needs to be greater than 0'
+        ];
+
+        // foreach($request->input('quantity') as $key => $value) {
+        //     $rules["quantity.{$key}"] = 'numeric|min:1';
+        // }
 
 
-        foreach($request->input('quantity') as $key => $value) {
-            $rules["quantity.{$key}"] = 'numeric|min:1';
-        }
-
-
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
 
         if ($validator->passes()) {
@@ -121,13 +126,8 @@ class ReceivingsController extends Controller
 
 
             return redirect()->back()->with('success', 'Stock received');
-
-
-
-            return response()->json(['success'=>'done']);
         }
 
-        return redirect()->back()->with('error', 'Quantity cannot be 0');
-        // return response()->json(['error'=>$validator->errors()->all()]);
+        return redirect()->back()->withErrors($validator)->withInput();
     }
 }

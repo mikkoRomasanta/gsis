@@ -12,7 +12,7 @@ use Validator;
 class IssuancesController extends Controller
 {
 
-    public function __construct() //unauthenticated users will only be able to access index page of issuances
+    public function __construct()
     {
         $this->middleware('auth');
     }
@@ -93,14 +93,19 @@ class IssuancesController extends Controller
 
         foreach($request->input('quantity') as $key => $value) {
             $quantityCount = Item::where('id', $item_id[$key])->value('quantity');
-            $rules["quantity.{$key}"] = ['numeric','min:0.25',new QuantityCount($quantityCount)];
+            $rules["quantity.{$key}"] = ['min:0.25',new QuantityCount($quantityCount)];
         }
 
         foreach($request->input('received_by') as $key => $value){
             $rules["received_by.{$key}"] = 'required';
         }
 
-        $validator = Validator::make($request->all(), $rules);
+        $messages = [
+            'received_by.*.required' => 'Please input receipient',
+            'quantity.*.min' => 'Minimum amount is 0.25'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
 
 
         if ($validator->passes()) {
