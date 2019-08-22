@@ -49,6 +49,10 @@
                             <div class="dropdown-menu color-bg-main">
                             <a class="dropdown-item" href="/issuances">Issuance</a>
                             <a class="dropdown-item" href="/receivings">Receiving</a>
+                            <div class="dropdown-divider" style="border-top: 1px solid #F4FAD2"></div>
+                            @if(Auth::user()->role != 'USER')
+                                <a class="dropdown-item" href="/modify">Modify</a>
+                            @endif
                             </div>
                         </li>
                     @endif

@@ -19,6 +19,7 @@ Route::get('getItems', 'ItemsController@getAll')->name('get.items'); //for ajax
 //**********ISS/REC*****************/
 Route::get('getIss', 'IssuancesController@getAll')->name('get.iss'); //for datatables ajax // send data to /getIss dt will then get data to /getIss via get.iss
 Route::resource('issuances', 'IssuancesController');
+Route::post('issuances/modify', 'IssuancesController@modify')->name('issuance.modify');
 Route::get('getRec', 'ReceivingsController@getAll')->name('get.rec'); //for datatables ajax
 Route::resource('receivings', 'ReceivingsController');
 //*********************************/

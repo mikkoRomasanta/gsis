@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Rules\QuantityCount;
 use App\Issuance;
 use App\Item;
-use DB;
+use App\Admin;
 use Validator;
+use Auth;
 
 class IssuancesController extends Controller
 {
@@ -152,18 +153,18 @@ class IssuancesController extends Controller
 
     public function show($id)
     {
-        // $iss = Issuance::where('id', '3')->get();
+
     }
 
     public function edit($id)
     {
-        //
+
     }
 
 
     public function update(Request $request, $id)
     {
-        //
+
     }
 
 
@@ -187,5 +188,44 @@ class IssuancesController extends Controller
         //     return $row->quantity.' '.$row->uom;})
         //     ->make(true);
         return $issuanceDt->toJson();
+    }
+
+    public function modify(Request $request){
+        $this->validate($request,[
+            'remarks' => 'max:30',
+        ]);
+        if($request->has('delete')) {
+            $status = 'INACTIVE';
+
+            $id = $request->id;
+            $issRemarks = $request->remarks;
+            $qty = $request->qty;
+            $item_id = $request->item_id;
+
+            $iss = Issuance::find($id);
+            $iss->status = $status;
+            $iss->remarks = $issRemarks;
+            $iss->save();
+
+            $quantityCount = Item::where('item_name', $item_id)->value('quantity'); //get quantity count
+            $itemId = Item::where('item_name', $item_id)->value('id');
+            $newQuantity = $quantityCount + $qty;
+            Item::where('id', $itemId)->update(array('quantity' => $newQuantity)); //increase quantity of item based on qty of issuance
+
+            //save admin logs
+            $user = Auth::user()->username;
+            $action1 = 'Edited';
+            $action2 = 'Issuance';
+            $action3 = '['.$id.'] set to INACTIVE';
+            $remarks = $issRemarks.' | added '.$qty.' items to item # '.$itemId;
+            Admin::insertLog($user, $action1, $action2, $action3, $remarks);
+
+            $msg = 'Issuance # '.$id.' deleted';
+            return redirect()->back()->with('success', $msg);
+        }
+        else{
+            return redirect()->back()->with('error', 'Please check the delete button');
+        }
+
     }
 }
