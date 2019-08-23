@@ -83,6 +83,9 @@ class DashboardController extends Controller
                         }
                     } //quantity left / depletion rate = days before depletion. (based on last month's ave_issuance(item_stats) / calcDailyIssuance())
                 }
+                else if($item->quantity == 0){
+                    $item->item_desc = 'Stocks depleted';
+                }
                 else{$item->item_desc = 'N/A';} //if no record in item_stats / no previous ave_issuance
         }
         return $stocksLow;

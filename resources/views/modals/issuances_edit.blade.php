@@ -43,9 +43,9 @@
                         <th>Action</th>
                     </tr>
                     <tr>
-                        <td>{{Form::checkbox('delete','', true,['class' => 'form-control-sm'])}}</td>
+                        <td>{{Form::checkbox('delete','', false,['class' => 'form-control-sm'])}}</td>
                         <td>{{Form::text('remarks','',['class' => 'form-control', 'placeholder' => 'reason for deletion'])}}</td>
-                        <td>{{Form::submit('Submit',['class' => 'btn btn-primary btn-sm'])}}</td>
+                        <td>{{Form::submit('Delete',['class' => 'btn btn-danger btn-sm'])}}</td>
                     </tr>
                     {{Form::hidden('id','',['id' => 'formIssId'])}}
                     {{Form::hidden('qty','',['id' => 'formQtyId'])}}

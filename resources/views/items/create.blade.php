@@ -13,8 +13,8 @@
                     <th style="width: 30%">Item Name</th>
                     <th style="width: 25%">Item Desc</th>
                     <th style="width: 10%">Buffer Stocks</th>
-                    <th style="width: 10">Lead Time</th>
-                    <th style="width: 13%">UOM</th>
+                    <th style="width: 13">Lead Time</th>
+                    <th style="width: 10%">UOM</th>
                     <th style="width: 12%">Payment</th>
                     <th style="width: 3%">Del</th>
                 </tr>
@@ -39,7 +39,7 @@
             var i=1;
             $('#addBtn').click(function(){
                 i++;
-                $('#tbl-create').append('<tr id="row'+i+'"><td>{{Form::text('item_name[]','',['class' => 'form-control', 'placeholder' => 'item name'])}}</td><td>{{Form::textarea('item_desc[]','',['class' => 'form-control', 'placeholder' => 'item description', 'rows' => 1])}}</td><td>{{Form::number('buffer_stocks[]',0,['class' => 'form-control', 'placeholder' => '0'])}}</td> <td>{{Form::number('lead_time[]',0,['class' => 'form-control', 'placeholder' => '0'])}}</td><td>{{Form::select('uom[]',$uom,null,['class' => 'form-control'])}}</td><td>{{Form::select('payment[]', [0 => 'flowlites', 1 => 'cprf'], 0, ['class' => 'form-control'])}}</td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger">-</button></td></tr>');
+                $('#tbl-create').append('<tr id="row'+i+'"><td>{{Form::text('item_name[]','',['class' => 'form-control', 'placeholder' => 'item name'])}}</td><td>{{Form::textarea('item_desc[]','',['class' => 'form-control', 'placeholder' => 'item description', 'rows' => 1])}}</td><td>{{Form::number('buffer_stocks[]',0,['class' => 'form-control', 'placeholder' => '0'])}}</td> <td>{{Form::number('lead_time[]',30,['class' => 'form-control', 'placeholder' => '0'])}}</td><td>{{Form::select('uom[]',$uom,null,['class' => 'form-control'])}}</td><td>{{Form::select('payment[]', [0 => 'flowlites', 1 => 'cprf'], 0, ['class' => 'form-control'])}}</td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger">-</button></td></tr>');
             });
 
             $(document).on('click', '.btn-danger', function(){
