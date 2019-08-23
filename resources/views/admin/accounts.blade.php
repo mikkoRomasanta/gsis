@@ -68,7 +68,7 @@
                         {'data' : 'role'},
                         {'data' : 'updated_at'},
                         {'data' : 'created_at'},
-                        { "defaultContent": "<a href='#' class='btn btn-info btn-sm' id='editBtn'>Edit</a>"}
+                        { "defaultContent": "<a href='#' class='btn btn-info btn-sm' id='editBtn'><i class='fas fa-edit fa-fw'></i></a>"}
                     ],
                     dom: 'Bfrtip',
                     buttons: [

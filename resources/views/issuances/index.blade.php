@@ -81,7 +81,7 @@
                             "data": null,
                             orderable: false,
                             render: function ( data, type, row ) {
-                            var btn = '<button class="btn btn-sm color-btn-link" data-toggle="modal" data-target="#mdlEditIss"><strong><></strong></button>'
+                            var btn = '<button class="btn btn-sm color-btn-link" data-toggle="modal" data-target="#mdlEditIss"><i class="fas fa-trash-alt fa-fw"></i></button>'
                             return btn;
                         }
                         },
