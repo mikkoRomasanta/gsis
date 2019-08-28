@@ -63,8 +63,9 @@ class DashboardController extends Controller
                 if(count($item->itemStats) > 0){ // check if item's relation(item_stats) is empty or not
                     foreach($item->itemStats as $stat){
                         if(is_null($stat->ave_issuance)){
+                            $item_id = $stat->item_id;
                             $dateCreated = new Carbon($item->created_at);
-                            $depletionRate = $this->calcDailyIssuance($stat, $dateCreated);
+                            $depletionRate = $this->calcDailyIssuance($item_id, $dateCreated);
                             if($item->quantity == 0){
                                 $item->item_desc = 'Stocks depleted';
                             }
@@ -86,14 +87,28 @@ class DashboardController extends Controller
                 else if($item->quantity == 0){
                     $item->item_desc = 'Stocks depleted';
                 }
+                else if(count($item->itemStats) == 0){
+                    $itemId = $item->id;
+                    $dateCreated = new Carbon($item->created_at);
+                    $depletionRate = $this->calcDailyIssuance($itemId, $dateCreated);
+                    if($item->quantity == 0){
+                        $item->item_desc = 'Stocks depleted';
+                    }
+                    else if($depletionRate == 0){
+                        $item->item_desc = 'N/A';
+                    }
+                    else{
+                        $item->item_desc = number_format((float)$item->quantity / $depletionRate,2,'.','');
+                    }
+                }
                 else{$item->item_desc = 'N/A';} //if no record in item_stats / no previous ave_issuance
         }
         return $stocksLow;
     }
 
     //new items(item_stats = 0/NULL) with 5 or more issuances(this month) will have its depletion rate calculated.
-    public function calcDailyIssuance($stat, $dateCreated){
-            $issuanceThisMonth = Issuance::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->where('item_id', $stat->item_id)->get();
+    public function calcDailyIssuance($itemId, $dateCreated){
+            $issuanceThisMonth = Issuance::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->where('item_id', $itemId)->get();
             $issuanceCount = count($issuanceThisMonth);
             $days = $this->getDaysSinceCreation($dateCreated);
 
