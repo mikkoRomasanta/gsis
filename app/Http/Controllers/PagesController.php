@@ -16,23 +16,19 @@ class PagesController extends Controller
         $dateNow = Carbon::now()->format('M-Y');
         $dateSaved = DB::table('item_stats_update')->orderBy('id', 'desc')->take(1)->get(); //get last date on item_stats_update
 
-        if(empty($dateSaved)){
+        foreach($dateSaved as $dateSaved){
+            $date = $dateSaved->date;
+        }
 
-            foreach($dateSaved as $dateSaved){
-                $date = $dateSaved->date;
-            }
-
-            if($dateNow != $date){
-                \Artisan::call('update:itemstats');
-                $title = 'Item stats updated for '.$dateNow;
-            }
-            else{
-                $title = 'Welcome to GSIS';
-            }
+        if($dateNow != $date){
+            \Artisan::call('update:itemstats');
+            $title = 'Item stats updated for '.$dateNow;
         }
         else{
             $title = 'Welcome to GSIS';
         }
+
+
 
         return view('pages.index')->with('title', $title);
     }
