@@ -141,6 +141,7 @@
                     var tr = $( target ).closest('tr');
                     var tds = tr.find('td');
 
+                    $('#mdlTitle').html('Delete | Issuance #'+tds.eq(0).text());
                     $('#issId').html(tds.eq(0).text());
                     $('#issDate').html(tds.eq(1).text());
                     $('#issItem').html(tds.eq(2).text());
