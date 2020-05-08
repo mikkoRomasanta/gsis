@@ -96,7 +96,7 @@ class ItemsController extends Controller
             $stat->save();
 
                  //save admin logs
-            $user = Auth::user()->username;
+            $user = Auth::user()->emp_id;
             $action1 = 'Created';
             $action2 = 'Item';
             $action3 = '['.$item->id.'] '.$item->item_name;
@@ -226,7 +226,7 @@ class ItemsController extends Controller
             $item->save();
 
             //save admin logs
-            $user = Auth::user()->username;
+            $user = Auth::user()->emp_id;
             $action1 = 'Edited';
             $action2 = 'Item';
             $action3 = '['.$item->id.'] '.$item->item_name;
@@ -257,7 +257,7 @@ class ItemsController extends Controller
             $item->save();
 
             //save admin logs
-            $user = Auth::user()->username;
+            $user = Auth::user()->emp_id;
             $action1 = 'Deleted';
             $action2 = 'Item';
             $action3 = '['.$item->id.'] '.$item->item_name;
