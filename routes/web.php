@@ -30,6 +30,7 @@ Route::get('admin/accounts', 'UsersController@index');
 Route::post('admin/accounts', 'UsersController@update');
 Route::get('admin/adminlogs', 'UsersController@adminLogs');
 Route::get('getAdminLogs', 'UsersController@getAdminLogs')->name('get.adminLogs');
+Route::get('getAllEmp','UsersController@getAll')->name('get.users');
 //******************************/
 
 //**********Excel***************/

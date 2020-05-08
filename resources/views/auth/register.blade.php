@@ -17,15 +17,9 @@
                         {{ csrf_field() }}
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-3 col-form-label"><strong>Name</strong></label>
+                            <label for="id" class="col-md-3 col-form-label"><strong>Employee</strong></label>
                             <div class="col-md-9">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="username" class="col-md-3 col-form-label"><strong>Username</strong></label>
-                            <div class="col-md-9">
-                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
+                                <input id="flexdata" type="text" class="form-control" name="id" value="{{ old('id') }}" required autofocus>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -38,18 +32,6 @@
                                         <option value="ADMIN">ADMIN</option>
                                     @endif
                                 </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="password" class="col-md-3 col-form-label"><strong>Password</strong></label>
-                            <div class="col-md-9">
-                                <input id="password" type="password" class="form-control" name="password" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-3 col-form-label"><strong>Confirm Pass</strong></label>
-                            <div class="col-md-9">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -66,3 +48,23 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('#flexdata').flexdatalist({ //choose user to add to process
+            minLength: 1,
+            data: '{{url("getAllEmp")}}',
+            searchIn: ['emp_id','first_name','last_name'],
+            valueProperty: 'id',
+            visibleProperties: ['emp_id','first_name','last_name'],
+            selectionRequired: true,
+            searchContain: true
+        });
+
+    });
+</script>
+
+
+@endpush

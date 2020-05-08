@@ -56,6 +56,12 @@ class UsersController extends Controller
         }
     }
 
+    public function getAll(){
+        $userDt = User::get();
+        
+        return $userDt->toJson();
+    }
+
     public function update(Request $request){
         $user = Auth::user();
         if($user->can('update', User::class)){

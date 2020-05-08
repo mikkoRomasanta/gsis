@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\UserRoles;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -54,9 +55,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:12', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'id' => ['required'],
             'role' => ['required'],
         ]);
     }
@@ -71,17 +70,15 @@ class RegisterController extends Controller
     {
 
         //save admin logs
-        $user = Auth::user()->username;
+        $user = Auth::user()->emp_id;
         $action1 = 'Created';
         $action2 = 'User';
-        $action3 = '['.$data["username"].'] ';
+        $action3 = '[User ID: '.$data["id"].'] ';
         $remarks = null;
         Admin::insertLog($user, $action1, $action2, $action3, $remarks);
 
-        return User::create([
-            'name' => $data['name'],
-            'username' =>$data['username'],
-            'password' => Hash::make($data['password']),
+        return UserRoles::create([
+            'user_id' => $data['id'],
             'role' => $data['role'],
         ]);
 
