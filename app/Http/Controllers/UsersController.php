@@ -24,7 +24,7 @@ class UsersController extends Controller
         $user = Auth::user();
         if($user->can('view', User::class)){
             $users = UserRoles::with('emp')->get();
-// return dd($users);
+
             return view('admin.accounts')->with('data',$users);
         }
         else{
@@ -85,40 +85,35 @@ class UsersController extends Controller
         }
     }
 
-    public function getAll(){
-        $user = Auth::user();
-        if($user->can('view', User::class)){
-            $userDt = User::with('userRole')->select('id','emp_id', DB::raw("CONCAT(last_name,' ',first_name) as name"),'last_name','role','updated_at','created_at')
-            ->get();
+    // public function getAll(){
+    //     $user = Auth::user();
+    //     if($user->can('view', User::class)){
+    //         $userDt = User::with('userRole')->select('id','emp_id', DB::raw("CONCAT(last_name,' ',first_name) as name"),'last_name','role','updated_at','created_at')
+    //         ->get();
 
-            return $userDt->toJson();
-        }
-        else{
-            return redirect('/error01');
-        }
-    }
+    //         return $userDt->toJson();
+    //     }
+    //     else{
+    //         return redirect('/error01');
+    //     }
+    // }
 
     public function update(Request $request){
         $user = Auth::user();
         if($user->can('update', User::class)){
-            $this->validate($request, [
-                'name' => 'required|max:30'
-            ]);
 
             $id = $request->id;
-            $username = $request->username;
-            $user = User::find($id);
+            $user = UserRoles::find($id);
 
-            $user->name = $request->name;
             $user->status = $request->status;
             $user->role = $request->role;
             $user->save();
 
             //save admin logs
-            $user = Auth::user()->username;
+            $user = Auth::user()->emp_id;
             $action1 = 'Edited';
             $action2 = 'User';
-            $action3 = '['.$id.'] '.$username;
+            $action3 = '['.$id.'] ';
             $remarks = null;
             Admin::insertLog($user, $action1, $action2, $action3, $remarks);
 

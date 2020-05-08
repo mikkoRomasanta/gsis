@@ -33,4 +33,8 @@ class User extends Authenticatable
     public function userRole(){
         return $this->hasOne('App\UserRoles');
     }
+
+    public function isAdmin(){
+        return $this->userRole()->where('role','=','ADMIN')->first();
+    }
 }

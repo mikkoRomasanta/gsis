@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container h-100">
-        <input id="role" type="text" style="display:none" value="{{ Auth::user()->role }}" readonly>
+        <input id="role" type="text" style="display:none" value="{{ Auth::user()->userRole->role }}" readonly>
         <table class="display compact table-striped" id="table-accounts">
             <thead>
                 <tr id="filter_row" class="color-bg-link">
@@ -13,7 +13,7 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    @if(Auth::user()->role == 'ADMIN')
+                    @if(Auth::user()->isAdmin())
                         <th></th>
                     @else
                         <th style='display:none'></th>
@@ -27,7 +27,7 @@
                     <th>Status</th>
                     <th>Role</th>
                     <th>Date Created</th>
-                    @if(Auth::user()->role == 'ADMIN')
+                    @if(Auth::user()->isAdmin())
                         <th>Action</th>
                     @else
                         <th style='display:none'>Action</th>
@@ -44,7 +44,11 @@
                         <td id="status">{{$user->status}}</td>
                         <td id="user_role">{{$user->role}}</td>
                         <td>{{$user->created_at}}</td>
-                        <td><a href='#' class='btn btn-info btn-sm' id='editBtn'><i class='fas fa-edit fa-fw'></i></a></td>
+                        @if(Auth::user()->isAdmin())
+                            <td><a href='#' class='btn btn-info btn-sm' id='editBtn'><i class='fas fa-edit fa-fw'></i></a></td>
+                        @else
+                            <th style='display:none'>Action</th>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>
