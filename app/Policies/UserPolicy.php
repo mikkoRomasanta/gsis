@@ -16,16 +16,16 @@ class UserPolicy
      */
     public function view(User $user)
     {
-        return $user->role != 'USER';
+        return $user->userRole->role != 'USER';
     }
 
     public function viewLogs(User $user)
     {
-        return $user->role == 'ADMIN';
+        return $user->userRole->role == 'ADMIN';
     }
 
     public function update(User $user)
     {
-        return $user->role == 'ADMIN';
+        return $user->userRole->role == 'ADMIN';
     }
 }

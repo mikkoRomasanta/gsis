@@ -16,17 +16,17 @@ class ItemPolicy
 
     public function create(User $user)
     {
-        return $user->role != 'USER';
+        return $user->userRole->role != 'USER';
     }
 
     public function update(User $user)
     {
-        return $user->role != 'USER';
+        return $user->userRole->role != 'USER';
     }
 
     public function delete(User $user)
     {
-        return $user->role != 'USER';
+        return $user->userRole->role != 'USER';
     }
 
     public function restore(User $user)
