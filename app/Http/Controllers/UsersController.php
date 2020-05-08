@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Rules\ConfirmOldPassword;
 use App\User;
+use App\UserRoles;
 use App\Admin;
 use Validator;
 use Auth;
+use DB;
 
 class UsersController extends Controller
 {
@@ -21,11 +23,9 @@ class UsersController extends Controller
     {
         $user = Auth::user();
         if($user->can('view', User::class)){
-            // $data = User::all()->where('status', '=', 'ACTIVE');
-
-            // return view('admin.accounts')->with('data', $data);
-
-            return view('admin.accounts');
+            $users = UserRoles::with('emp')->get();
+// return dd($users);
+            return view('admin.accounts')->with('data',$users);
         }
         else{
             return redirect('/error01');
@@ -88,7 +88,8 @@ class UsersController extends Controller
     public function getAll(){
         $user = Auth::user();
         if($user->can('view', User::class)){
-            $userDt = User::select('id','username','name','status','role','updated_at','created_at')->get();
+            $userDt = User::with('userRole')->select('id','emp_id', DB::raw("CONCAT(last_name,' ',first_name) as name"),'last_name','role','updated_at','created_at')
+            ->get();
 
             return $userDt->toJson();
         }

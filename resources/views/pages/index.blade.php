@@ -9,12 +9,12 @@
                     {{ csrf_field() }}
                 <div class="form-group form-row">
                     <div class="col-md-1"></div>
-                    <div class="col-md-4{{ $errors->has('username') ? ' has-error' : '' }}">
-                        <label for="username"">Username</label>
-                        <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
-                        @if ($errors->has('username'))
+                    <div class="col-md-4{{ $errors->has('emp_id') ? ' has-error' : '' }}">
+                        <label for="emp_id"">Username</label>
+                        <input id="emp_id" type="text" class="form-control" name="emp_id" value="{{ old('emp_id') }}" required autofocus>
+                        @if ($errors->has('emp_id'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('username') }}</strong>
+                                <strong>{{ $errors->first('emp_id') }}</strong>
                             </span>
                         @endif
                     </div>

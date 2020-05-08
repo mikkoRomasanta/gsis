@@ -28,6 +28,7 @@ class LoginController extends Controller
     {
         $credentials = $request->only($this->username(), 'password');
         $credentials['status'] = 'ACTIVE';
+        $credentials['gsis'] = 1;
 
         return $credentials;
     }
@@ -39,6 +40,6 @@ class LoginController extends Controller
 
     public function username()
     {
-        return 'username';
+        return 'emp_id';
     }
 }
