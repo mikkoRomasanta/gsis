@@ -12,7 +12,6 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th></th>
                     @if(Auth::user()->isAdmin())
                         <th></th>
                     @else
@@ -24,7 +23,6 @@
                     <th>Username</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Status</th>
                     <th>Role</th>
                     <th>Date Created</th>
                     @if(Auth::user()->isAdmin())
@@ -41,7 +39,6 @@
                         <td id="username">{{$user->emp->emp_id}}</td>
                         <td id="first_name">{{$user->emp->first_name}}</td>
                         <td id="last_name">{{$user->emp->last_name}}</td>
-                        <td id="status">{{$user->status}}</td>
                         <td id="user_role">{{$user->role}}</td>
                         <td>{{$user->created_at}}</td>
                         @if(Auth::user()->isAdmin())
@@ -114,7 +111,6 @@
                 .on( 'click', '#editBtn', function () {
                     $("#mdlEdit").modal();
                     var data = tableUser.row( $(this).parents('tr') ).data();
-                    $('#statusBox').val($(this).closest('tr').find('#status').text());
                     $('#roleBox').val($(this).closest('tr').find('#user_role').text());
                     $('#usernameBox').val($(this).closest('tr').find('#username').text());
                     $('#idBox').val($(this).closest('tr').find('#id').text());

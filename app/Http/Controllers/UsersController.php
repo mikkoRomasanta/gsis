@@ -69,7 +69,6 @@ class UsersController extends Controller
             $id = $request->id;
             $emp = UserRoles::find($id);
 
-            $emp->status = $request->status;
             $emp->role = $request->role;
             $emp->save();
 

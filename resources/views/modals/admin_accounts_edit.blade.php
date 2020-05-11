@@ -10,10 +10,6 @@
                 {{Form::open(['action' => 'UsersController@update', 'method' => 'POST', 'class' => 'text-center'])}}
                     {{csrf_field()}}
                     <div class="form-group row">
-                        {{Form::label('status', 'Status',['class' => 'col-md-3 col-form-label', 'style' => 'font-weight: bold'])}}
-                        {{Form::select('status',['ACTIVE' => 'ACTIVE', 'INACTIVE' => 'INACTIVE'],'',['id' => 'statusBox', 'class' => 'col-md-8 form-control'])}}
-                    </div>
-                    <div class="form-group row">
                         {{Form::label('role', 'Role',['class' => 'col-md-3 col-form-label', 'style' => 'font-weight: bold'])}}
                         {{Form::select('role',['USER' => 'USER', 'GSADMIN' => 'GSADMIN', 'ADMIN' => 'ADMIN'],'',['id' => 'roleBox', 'class' => 'col-md-8 form-control'])}}
                     </div>
