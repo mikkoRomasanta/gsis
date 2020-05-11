@@ -9,6 +9,9 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $connection = 'mysql2';
+    protected $table = 'employees';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -26,4 +29,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function userRole(){
+        return $this->hasOne('App\UserRoles');
+    }
+
+    public function isAdmin(){
+        return $this->userRole()->where('role','=','ADMIN')->first();
+    }
 }

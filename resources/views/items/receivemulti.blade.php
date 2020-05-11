@@ -22,7 +22,7 @@
                     <td>{{Form::text('stocks[]','',['class' => 'form-control', 'id' => 'stocks', 'readonly'])}}</td>
                     <td>{{Form::number('quantity[]','',['class' => 'form-control', 'placeholder' => '0', 'min' => 0])}}</td>
                     <td>{{Form::text('uom[]','',['class' => 'form-control', 'id' => 'uom', 'readonly'])}}</td>
-                    <td>{{Form::text('received_by[]', Auth::user()->name.' ['.Auth::user()->username.']',['class' => 'form-control', 'placeholder' => 'name', 'readonly'])}}</td>
+                    <td>{{Form::text('received_by[]', Auth::user()->first_name.' '.Auth::user()->last_name.' ['.Auth::user()->emp_id.']',['class' => 'form-control', 'placeholder' => 'name', 'readonly'])}}</td>
                     <td></td>
                 </tr>
             </table>
@@ -38,7 +38,7 @@
             var i=1;
             $('#addBtn').click(function(){
                 i++;
-                $('#tbl-receive').append('<tr id="row'+i+'"><td style="text-align: center">{{Form::select('item_id[]', $items, null,['class' => 'form-control', 'id' => 'item_id', 'placeholder' => 'choose an item...', 'style' => 'background-color: #e9ecef'])}}</td><td>{{Form::text('stocks[]','',['class' => 'form-control', 'id' => 'stocks', 'readonly'])}}</td><td>{{Form::number('quantity[]','',['class' => 'form-control', 'placeholder' => '0'])}}</td><td>{{Form::text('uom[]','',['class' => 'form-control', 'id' => 'uom', 'readonly'])}}</td><td>{{Form::text('received_by[]', Auth::user()->name.' ['.Auth::user()->username.']',['class' => 'form-control', 'placeholder' => 'name', 'readonly'])}}</td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger">-</button></td></tr>');
+                $('#tbl-receive').append('<tr id="row'+i+'"><td style="text-align: center">{{Form::select('item_id[]', $items, null,['class' => 'form-control', 'id' => 'item_id', 'placeholder' => 'choose an item...', 'style' => 'background-color: #e9ecef'])}}</td><td>{{Form::text('stocks[]','',['class' => 'form-control', 'id' => 'stocks', 'readonly'])}}</td><td>{{Form::number('quantity[]','',['class' => 'form-control', 'placeholder' => '0'])}}</td><td>{{Form::text('uom[]','',['class' => 'form-control', 'id' => 'uom', 'readonly'])}}</td><td>{{Form::text('received_by[]', Auth::user()->first_name.' '.Auth::user()->last_name.' ['.Auth::user()->emp_id.']',['class' => 'form-control', 'placeholder' => 'name', 'readonly'])}}</td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger">-</button></td></tr>');
             });
 
             $(document).on('click', '.btn-danger', function(){

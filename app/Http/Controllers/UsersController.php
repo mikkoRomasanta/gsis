@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Rules\ConfirmOldPassword;
 use App\User;
+use App\UserRoles;
 use App\Admin;
 use Validator;
 use Auth;
+use DB;
 
 class UsersController extends Controller
 {
@@ -21,44 +23,13 @@ class UsersController extends Controller
     {
         $user = Auth::user();
         if($user->can('view', User::class)){
-            // $data = User::all()->where('status', '=', 'ACTIVE');
+            $users = UserRoles::with('emp')->get();
 
-            // return view('admin.accounts')->with('data', $data);
-
-            return view('admin.accounts');
+            return view('admin.accounts')->with('data',$users);
         }
         else{
             return redirect('/error01');
         }
-    }
-
-    public function changePass(){
-        return view('auth.changepassword');
-    }
-
-    public function changePassword(Request $request){
-        $userAuth = Auth::user();
-        $oldPassword = $userAuth->password;
-
-        $this->validate($request, [
-            'cur_password' => ['required', new ConfirmOldPassword($oldPassword)],
-            'new_password' => 'required|min:6|confirmed'
-        ]);
-
-        $curPassword = $request->input("cur_password");
-        $newPassword = $request->input('new_password');
-
-
-        $userId = $userAuth->id;
-        $user = User::find($userId);
-        $user->password = Hash::make($newPassword);
-        $user->save();
-
-        // return response()->json(['result' => $newPassword.' '.$userId]);
-
-        Auth::logout();
-
-        return redirect('/');
     }
 
     public function adminLogs(){
@@ -86,38 +57,26 @@ class UsersController extends Controller
     }
 
     public function getAll(){
-        $user = Auth::user();
-        if($user->can('view', User::class)){
-            $userDt = User::select('id','username','name','status','role','updated_at','created_at')->get();
-
-            return $userDt->toJson();
-        }
-        else{
-            return redirect('/error01');
-        }
+        $userDt = User::get();
+        
+        return $userDt->toJson();
     }
 
     public function update(Request $request){
         $user = Auth::user();
         if($user->can('update', User::class)){
-            $this->validate($request, [
-                'name' => 'required|max:30'
-            ]);
 
             $id = $request->id;
-            $username = $request->username;
-            $user = User::find($id);
+            $emp = UserRoles::find($id);
 
-            $user->name = $request->name;
-            $user->status = $request->status;
-            $user->role = $request->role;
-            $user->save();
+            $emp->role = $request->role;
+            $emp->save();
 
             //save admin logs
-            $user = Auth::user()->username;
+            $user = Auth::user()->emp_id;
             $action1 = 'Edited';
             $action2 = 'User';
-            $action3 = '['.$id.'] '.$username;
+            $action3 = '[User Id: '.$emp->user_id.'] ';
             $remarks = null;
             Admin::insertLog($user, $action1, $action2, $action3, $remarks);
 

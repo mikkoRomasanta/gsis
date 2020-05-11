@@ -82,7 +82,7 @@
 
                         <div class="dropdown-menu color-bg-main">
                             <a class="dropdown-item" href="/excel">Excel</a>
-                            <a class="dropdown-item" href="/changepass">Change Password</a>
+                            <a class="dropdown-item" href="http://10.129.8.20:8080" target="_new">Change Password</a>
                             <div class="dropdown-divider"></div>
                             <a  class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();

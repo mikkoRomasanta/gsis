@@ -216,7 +216,7 @@ class IssuancesController extends Controller
                 Item::where('id', $itemId)->update(array('quantity' => $newQuantity)); //increase quantity of item based on qty of issuance
 
                 //save admin logs
-                $user = Auth::user()->username;
+                $user = Auth::user()->emp_id;
                 $action1 = 'Edited';
                 $action2 = 'Issuance';
                 $action3 = '['.$id.'] set to INACTIVE';

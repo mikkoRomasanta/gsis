@@ -10,6 +10,6 @@ class IssuancePolicy
     use HandlesAuthorization;
 
      public function modify(User $user){
-        return $user->role != 'USER';
+        return $user->userRole->role != 'USER';
      }
 }

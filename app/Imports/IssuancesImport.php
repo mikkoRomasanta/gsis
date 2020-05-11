@@ -51,7 +51,7 @@ class IssuancesImport implements ToCollection, WithValidation, WithHeadingRow
 
         $rowLength = count($rows);
         //save admin logs
-        $user = Auth::user()->username;
+        $user = Auth::user()->emp_id;
         $action1 = 'Imported';
         $action2 = 'Issuances';
         $action3 =  '['.$rowLength.' rows]';
