@@ -77,7 +77,7 @@
                 @else
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle username" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                            {{ Auth::user()->username }} <span class="caret"></span>
+                            {{ Auth::user()->emp_id }} <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu color-bg-main">
